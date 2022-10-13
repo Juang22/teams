@@ -17,11 +17,11 @@ routes.post('/platos',(req,res) => {
         .catch(error => res.json({message:error}))
 })
 
-// routes.get('/teams',(req,res) => {
-//     servicios(pool,req,result => {
-//         res.json(result)
-//     })
-// })
+
+
+routes.get('/platos/:id',(req,res) => {
+    
+})
 
 // routes.post('/players',(req,res) => {
 //     login(pool,req,result => {
