@@ -1,27 +1,26 @@
 const express = require('express');
 const routes = express.Router()
 const PlatoSchema = require('../model/platos')
+
 // const { login, servicios, register } = require('./operations')
 
 
 
 routes.post('/platos',(req,res) => {
-    // servicios(pool,req,result => {
-    //     res.json(result)
-    // })
-    console.log(req.body)
+    
     const plato = PlatoSchema(req.body);
-    console.log(req.body)
     plato.save()
         .then(data => res.json(data))
         .catch(error => res.json({message:error}))
 })
 
-// routes.get('/teams',(req,res) => {
-//     servicios(pool,req,result => {
-//         res.json(result)
-//     })
-// })
+routes.get('/platos',(req,res) => {
+    PlatoSchema
+        .find()
+        .then(data => res.json(data))
+        .catch(error => res.json({message:error}))
+    
+})
 
 // routes.post('/players',(req,res) => {
 //     login(pool,req,result => {
