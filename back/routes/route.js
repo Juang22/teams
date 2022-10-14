@@ -1,45 +1,55 @@
 const express = require('express');
 const routes = express.Router()
 const PlatoSchema = require('../model/platos')
+
 // const { login, servicios, register } = require('./operations')
 
 
 
 routes.post('/platos',(req,res) => {
-    // servicios(pool,req,result => {
-    //     res.json(result)
-    // })
-    console.log(req.body)
+    
     const plato = PlatoSchema(req.body);
-    console.log(req.body)
     plato.save()
         .then(data => res.json(data))
         .catch(error => res.json({message:error}))
 })
 
-
-
-routes.get('/platos/:id',(req,res) => {
+routes.get('/platos',(req,res) => {
+    PlatoSchema
+        .find()
+        .then(data => res.json(data))
+        .catch(error => res.json({message:error}))
     
 })
 
-// routes.post('/players',(req,res) => {
-//     login(pool,req,result => {
-//         res.json(result)
-//     })
-// })
+routes.get('/platos/:name',(req,res) => {
+    const { name } = req.params;
+    PlatoSchema
+        .findOne({name:name})
+        .then(data => res.json(data))
+        .catch(error => res.json({message:error}))
+    
+})
 
-// routes.post('/register',(req,res) => {
-//     register(pool,req,result => {
-//         res.json(result)
-//     })
-// })
+routes.put('/platos/:namePlato',(req,res) => {
+    const { namePlato } = req.params;
+    const { name, value, ingredients } = req.body;
+    PlatoSchema
+        .updateOne({name:namePlato},{$set: {name, value, ingredients}})
+        .then(data => res.json(data))
+        .catch(error => res.json({message:error}))
+    
+})
 
-// routes.put('/players  ',(req,res) => {
-//     login(pool,req,result => {
-//         res.json(result)
-//     })
-// })
+routes.delete('/platos/:name',(req,res) => {
+    const { name } = req.params;
+    PlatoSchema
+        .deleteOne({name:name})
+        .then(data => res.json(data))
+        .catch(error => res.json({message:error}))
+    
+})
+
 
 module.exports = routes;
     
