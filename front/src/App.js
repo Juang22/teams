@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from "react";
 import './App.css';
 import CardPlayers from  './cards/cards';
@@ -19,8 +20,8 @@ let arrayPrueba = [
 
 
 function App() {
-  const [Platos, setPlatos] = useState();
-  
+  const [Platos, setPlatos] = useState([]);
+
   useEffect(() => {
     fetch('http://localhost:8080/api/v1/platos')
       .then((response) => {
@@ -31,7 +32,7 @@ function App() {
         console.log(Platos)
         console.log(articulos)
       })
-  }, [])
+  },[])
 
 
 
@@ -42,7 +43,7 @@ function App() {
       </header>
       <div className='cards'>
         {Platos.map((element,index) => (
-          <CardPlayers  key={index} title={element.name} text={element.ingredients} btn={element.button}/>
+          <CardPlayers  key={index} title={element.name} text={element.ingredients} btn='Comprar'/>
         ))}
         </div>
     </div>
