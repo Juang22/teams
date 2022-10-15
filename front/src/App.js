@@ -1,7 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from "react";
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import CardPlayers from  './cards/cards';
+import CardForm from './cards/cardsForm';
+import Button from 'react-bootstrap/Button';
 
 
 let arrayPrueba = [
@@ -21,6 +24,11 @@ let arrayPrueba = [
 
 function App() {
   const [Platos, setPlatos] = useState([]);
+  const [Crear, setCrear] = useState(false);
+
+  const onCrearPlato = () => {
+    setCrear(true)
+  }
 
   useEffect(() => {
     fetch('http://localhost:8080/api/v1/platos')
@@ -39,11 +47,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Delivery</h1>
+        <h1>Menu Disponible</h1>
+        <Button variant="primary" onClick={onCrearPlato}>Crear Plato</Button>
       </header>
+      
       <div className='cards'>
-        {Platos.map((element,index) => (
-          <CardPlayers  key={index} title={element.name} text={element.ingredients} btn='Comprar'/>
+        {Crear ? <CardForm />
+        :Platos.map((element,index) => (
+          <CardPlayers  key={index} title={element.name} value={element.value} text={element.ingredients} />
         ))}
         </div>
     </div>
