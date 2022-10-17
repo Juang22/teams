@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-const CardForm = ( {show,setShow,name,ingredients,value} ) => {
-  const [newPlato, setnewPlato] = useState();
-
+const CardUpdate = ( {show,setShow,objPl} ) => {
+  const [newPlatoMod, setnewPlatoMod] = useState({
+  });
+  
   const handleClose = () => {
     setShow(false)
     };
-
   const onHandleChanges = (e) => {
-    setnewPlato({...newPlato,[e.target.name]: e.target.value})
+    setnewPlatoMod({...newPlatoMod,[e.target.name]: e.target.value})
     
   }
-
-
+  
 
   const handleSave = () => {
-    
-   
-    fetch('http://localhost:3000/api/v1/platos',{
-      method:'POST',
-      body: JSON.stringify(newPlato),
-      headers:{
-          "Content-Type":"application/json"
-      }})
-      .then((response) => response.json())
-      .then(data => {
+    console.log(newPlatoMod)
+        let id = newPlatoMod.name.replaceAll(' ','%20')
         
-        handleClose()})
-      
+        newPlatoMod.value = parseInt(newPlatoMod.value)
+    // fetch(`http://localhost:3000/api/v1/platos/${id}`,{
+    //   method:'PUT',
+    //   body: JSON.stringify(newPlatoMod),
+    //   headers:{
+    //       "Content-Type":"application/json",
+    //   }})
+    //   .then((response) => response)
+    //   .then(data => {
+        
+    //     handleClose()})
       
   }
   // const handleShow = () => ;
@@ -51,21 +51,21 @@ const CardForm = ( {show,setShow,name,ingredients,value} ) => {
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese nombre del plato"
+                
                 autoFocus
                 onChange={onHandleChanges}
                 name='name'
-                
+                value={objPl.name}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Ingredientes</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingrese los Ingredientes"
+                
                 onChange={onHandleChanges}
                 name='ingredients'
-                
+                value={objPl.ingredients}
               />
             </Form.Group>
             <Form.Group
@@ -76,10 +76,10 @@ const CardForm = ( {show,setShow,name,ingredients,value} ) => {
               <Form.Label>Precio</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Ingrese precio"
+                
                 onChange={onHandleChanges}
                 name='value'
-                
+                value={objPl.value}
 
               />
             </Form.Group>
@@ -99,4 +99,4 @@ const CardForm = ( {show,setShow,name,ingredients,value} ) => {
 }
 
 // render(<CardForm />);
-export default CardForm;
+export default CardUpdate;

@@ -5,13 +5,13 @@ const PlatoSchema = mongoose.Schema({
         type:String,
         required: true
     },
-    value:{
-        type:Number,
-        required: true
-    },
     ingredients:{
         type:String,
         required:false
+    },
+    value:{
+        type:Number,
+        required: true
     }
 
 })

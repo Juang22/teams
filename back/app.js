@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
 const api = require('./config/api')
+const cors = require('cors');
 require('dotenv').config();
 
 // app.use( (req, res, next) => {
@@ -23,7 +24,7 @@ app.use(
       extended: true,
     })
   );
-
+app.use(cors())
 app.use(express.json())
 app.use('/api/v1', api.v1)
 app.listen(port,(error) => {
