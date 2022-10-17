@@ -20,7 +20,7 @@ const CardForm = ( {show,setShow,name,ingredients,value} ) => {
   const handleSave = () => {
     
    
-    fetch('http://localhost:3000/api/v1/platos',{
+    fetch('http://localhost:8080/api/v1/platos',{
       method:'POST',
       body: JSON.stringify(newPlato),
       headers:{
