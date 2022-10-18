@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 function App() {
   const [platos, setPlatos] = useState([]);
   const [show, setShow] = useState(false);
+  const [refresh , setRefresh] = useState(false)
   
   
   const handleClose = () => setShow(false);
@@ -22,7 +23,7 @@ function App() {
   
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/v1/platos')
+    fetch('http://localhost:8080/api/v1/platos')
       .then((response) => {
         return response.json()
       })
@@ -30,7 +31,7 @@ function App() {
         setPlatos(articulos)
         
       })
-  },[show])
+  },[show,refresh])
 
 
 
@@ -44,7 +45,7 @@ function App() {
       <div className='cards'>
         { 
         platos.map((element,index) => (
-          <CardPlayers show={show} setShow={setShow}   key={index} title={element.name} value={element.value} text={element.ingredients} />
+          <CardPlayers refresh={refresh} setRefresh={setRefresh} show={show} setShow={setShow}   key={index} title={element.name} valuepl={element.value} text={element.ingredients} />
         ))}
         <CardForm show={show} setShow={setShow} />
         </div>

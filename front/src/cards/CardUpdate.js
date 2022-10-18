@@ -3,34 +3,28 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-const CardUpdate = ( {show,setShow,objPl} ) => {
-  const [newPlatoMod, setnewPlatoMod] = useState({
-  });
+const CardUpdate = ( {show, refresh,setShow,name,setName,ingredients,setIngredients,value,setValue, setRefresh} ) => {
   
   const handleClose = () => {
     setShow(false)
+    setRefresh(!refresh)
     };
-  const onHandleChanges = (e) => {
-    setnewPlatoMod({...newPlatoMod,[e.target.name]: e.target.value})
-    
-  }
   
 
   const handleSave = () => {
-    console.log(newPlatoMod)
-        let id = newPlatoMod.name.replaceAll(' ','%20')
+    
+      let id = name.replaceAll(' ','%20')
         
-        newPlatoMod.value = parseInt(newPlatoMod.value)
-    // fetch(`http://localhost:3000/api/v1/platos/${id}`,{
-    //   method:'PUT',
-    //   body: JSON.stringify(newPlatoMod),
-    //   headers:{
-    //       "Content-Type":"application/json",
-    //   }})
-    //   .then((response) => response)
-    //   .then(data => {
-        
-    //     handleClose()})
+      value = parseInt(value)
+      let objPl = {name,ingredients,value}
+    fetch(`http://localhost:8080/api/v1/platos/${id}`,{
+      method:'PUT',
+      body: JSON.stringify(objPl),
+      headers:{
+          "Content-Type":"application/json",
+      }})
+      .then((response) => handleClose())
+      
       
   }
   // const handleShow = () => ;
@@ -53,9 +47,9 @@ const CardUpdate = ( {show,setShow,objPl} ) => {
                 type="text"
                 
                 autoFocus
-                onChange={onHandleChanges}
+                onChange={(e)=> setName(e.target.value)}
                 name='name'
-                value={objPl.name}
+                value={name}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -63,9 +57,9 @@ const CardUpdate = ( {show,setShow,objPl} ) => {
               <Form.Control
                 type="text"
                 
-                onChange={onHandleChanges}
+                onChange={(e) => setIngredients(e.target.value)}
                 name='ingredients'
-                value={objPl.ingredients}
+                value={ingredients}
               />
             </Form.Group>
             <Form.Group
@@ -77,9 +71,9 @@ const CardUpdate = ( {show,setShow,objPl} ) => {
               <Form.Control
                 type="number"
                 
-                onChange={onHandleChanges}
+                onChange={(e)=> setValue(e.target.value)}
                 name='value'
-                value={objPl.value}
+                value={value}
 
               />
             </Form.Group>
