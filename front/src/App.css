@@ -35,7 +35,9 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  
+  -webkit-box-shadow: 13px 11px 5px -3px rgba(0,0,0,1);
+  -moz-box-shadow: 13px 11px 5px -3px rgba(0,0,0,1);
+  box-shadow: 13px 11px 5px -3px rgba(0,0,0,1);
 }
 #card-pl h1, p {
   color:aliceblue;
